@@ -6,7 +6,7 @@ const books = require("../books/books.json");
 function updateNumOfBooks(authors, books) {
   for (let i = 0; i < authors.length; i++) {
     for (let j = 0; j < books.length; j++) {
-      if (authors[i].fullName == books[j].author) {
+      if (authors[i].id == books[j].authorid) {
         authors[i].numberOfBooks += 1;
       }
     }
