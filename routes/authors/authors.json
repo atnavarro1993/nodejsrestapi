@@ -1,7 +1,12 @@
 [
     {
         "id":"1",
-        "FullName":"R.R Tolkien"
-        
+        "fullName":"R.R. Tolkien",
+        "numberOfBooks": 0
+    },
+    {
+        "id":"2",
+        "fullName":"R.R Tolkien",
+        "numberOfBooks": 0
     }
 ]
