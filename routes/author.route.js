@@ -25,13 +25,14 @@ router.post("/authors", (req, res) => {
 router.delete("/authors/:id",(req,res)=>{
   const id = req.params.id;
   _.remove(authors,(author)=>{
+    for (let i = 0; i < books.length; i++) {
+      if(books[i].authorid == id){
+        books.splice(i,1);
+      }
+    }
     return author.id == id;
   });
-  for (let i = 0; i < books.length; i++) {
-    if(books[i].authorid == id){
-      books.splice(i,1);
-    }
-  }
+  
   res.json({deleted:"ok"});
 });
 
