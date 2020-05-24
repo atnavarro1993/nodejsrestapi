@@ -1,6 +1,11 @@
 [
     {
         "id":"1",
+        "name":"the fakehobbit",
+        "authorid":2
+    },
+    {
+        "id":"2",
         "name":"the hobbit",
         "authorid":1
     }

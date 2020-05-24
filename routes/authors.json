@@ -3,6 +3,12 @@
         "id":"1",
         "name":"R.R.",
         "lastName":"Tolkien",
-        "numberOfBooks": 0
+        "numberOfBooks": 1
+    },
+    {
+        "id":"2",
+        "name":"R.R.",
+        "lastName":"fake",
+        "numberOfBooks": 1
     }
 ]

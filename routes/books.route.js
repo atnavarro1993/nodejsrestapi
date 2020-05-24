@@ -13,16 +13,31 @@ function itExists(authorid){
   });
   return x;
 }
+function showComplete(authors,books){
+  books.forEach(book=>{
+    authors.forEach(author=>{
+      if (book.authorid == author.id){
+        book.author = author.name+" "+author.lastName;
+      }
+    })
+  })
+}
 
 router.get("/books", (req, res) => {
+  showComplete(authors,books);
   res.json(books);
 });
 
 router.post("/books", (req, res) => {
-  const { name, authorid } = req.body;
+  const { name, authorid} = req.body;
   const exists= itExists(authorid);
-  console.log(exists)
+  console.log(exists);
   if (name && authorid&&exists) {
+   authors.forEach(author=>{
+      if (author.id == authorid){
+        author.numberOfBooks += 1;
+      }
+    })
     const newBook = { ...req.body };
     books.push(newBook);
     res.json({ added: "successful" });
