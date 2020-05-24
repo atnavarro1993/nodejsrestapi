@@ -2,41 +2,50 @@ const { Router } = require("express");
 const _ = require("lodash");
 const router = Router();
 const books = require("./books.json");
+const authors = require("./authors.json");
+
+function itExists(authorid){
+  let x = false;
+  authors.forEach(author=>{
+    if(authorid==author.id){
+      return x = true;
+    }
+  });
+  return x;
+}
 
 router.get("/books", (req, res) => {
   res.json(books);
 });
 
 router.post("/books", (req, res) => {
-  const { title, author, year } = req.body;
-  if (title && author && year) {
+  const { name, authorid } = req.body;
+  const exists= itExists(authorid);
+  console.log(exists)
+  if (name && authorid&&exists) {
     const newBook = { ...req.body };
     books.push(newBook);
     res.json({ added: "successful" });
   } else {
-    res.status(400).json({ statusCode: "bad request" });
+    res.status(403).json({ statusCode: "bad request, check values or if the author exist" });
   }
 });
 
 router.delete("/books/:id", (req, res) => {
   const id = req.params.id;
   _.remove(books, (book) => {
-    if (book.id == id) {
-      return book.id == id;
-    } else {
-      res.status(400).json({ statusCode: "bad request" });
-    }
+    return book.id == id;
   });
+  res.json();
 });
 
 router.put("/books/:id", (req, res) => {
   const id = req.params.id;
-  const { title, author, year } = req.body;
+  const { name, authorid } = req.body;
   _.each(books, (book) => {
     if (book.id == id) {
-      book.title = title;
-      book.author = author;
-      book.year = year;
+      book.name = name;
+      book.authorid = authorid;
       res.json({ modified: "successful" });
     } else {
       res.status(400).json({ statusCode: "bad request" });
