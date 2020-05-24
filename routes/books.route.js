@@ -4,45 +4,47 @@ const router = Router();
 const books = require("./books.json");
 const authors = require("./authors.json");
 
-function itExists(authorid){
+function itExists(authorid) {
   let x = false;
-  authors.forEach(author=>{
-    if(authorid==author.id){
-      return x = true;
+  authors.forEach((author) => {
+    if (authorid == author.id) {
+      return (x = true);
     }
   });
   return x;
 }
-function showComplete(authors,books){
-  books.forEach(book=>{
-    authors.forEach(author=>{
-      if (book.authorid == author.id){
-        book.author = author.name+" "+author.lastName;
+function showComplete(authors, books) {
+  books.forEach((book) => {
+    authors.forEach((author) => {
+      if (book.authorid == author.id) {
+        book.author = author.name + " " + author.lastName;
       }
-    })
-  })
+    });
+  });
 }
 
 router.get("/books", (req, res) => {
-  showComplete(authors,books);
+  showComplete(authors, books);
   res.json(books);
 });
 
 router.post("/books", (req, res) => {
-  const { name, authorid} = req.body;
-  const exists= itExists(authorid);
+  const { name, authorid } = req.body;
+  const exists = itExists(authorid);
   console.log(exists);
-  if (name && authorid&&exists) {
-   authors.forEach(author=>{
-      if (author.id == authorid){
+  if (name && authorid && exists) {
+    authors.forEach((author) => {
+      if (author.id == authorid) {
         author.numberOfBooks += 1;
       }
-    })
+    });
     const newBook = { ...req.body };
     books.push(newBook);
     res.json({ added: "successful" });
   } else {
-    res.status(403).json({ statusCode: "bad request, check values or if the author exist" });
+    res
+      .status(403)
+      .json({ statusCode: "bad request, check values or if the author exist" });
   }
 });
 
